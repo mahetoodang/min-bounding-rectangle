@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "concaveman": "^2.0.0",
-    "mathjs": "^14.6.0"
+    "mathjs": "^15.2.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.2.0",
