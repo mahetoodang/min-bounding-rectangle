@@ -10,7 +10,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
 	build: {
 		lib: {
-			entry: resolve(__dirname, 'src/index.ts'),
+			entry: resolve(import.meta.dirname, 'src/index.ts'),
 			name: 'min-bounding-rectangle',
 			fileName: (format) =>
 				format === 'es' ? `min-bounding-rectangle.${format}.mjs` : `min-bounding-rectangle.${format}.js`,
