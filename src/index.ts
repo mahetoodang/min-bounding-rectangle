@@ -1,7 +1,8 @@
 import concaveMan from 'concaveman';
-import { matrix, multiply, transpose } from './math-utils';
 
 type XY = [number, number];
+
+const vecMulMat = (v: XY, m: XY[]): XY => [v[0] * m[0][0] + v[1] * m[1][0], v[0] * m[0][1] + v[1] * m[1][1]];
 
 const findRotationsToTry = (hull: number[][]): XY[][] => {
 	const edges = [];
@@ -22,20 +23,17 @@ export const findMinBoundingRect = (points: XY[]): XY[] => {
 	const rotations = findRotationsToTry(hullPoints);
 
 	// Apply rotations to the hull
-	const rotPoints = rotations.map((rotation) => {
-		const rotatedMatrix = matrix(rotation);
-		const transposedHull = transpose(matrix(hullPoints));
-		return multiply(rotatedMatrix, transposedHull).toArray();
-	});
+	const rotPoints = rotations.map((rotation) => [
+		hullPoints.map((p) => rotation[0][0] * p[0] + rotation[0][1] * p[1]),
+		hullPoints.map((p) => rotation[1][0] * p[0] + rotation[1][1] * p[1]),
+	]);
 
-	const minXY = rotPoints.map((pMat): XY => {
-		const mat = pMat as number[][];
+	const minXY = rotPoints.map((mat): XY => {
 		const minX = Math.min(...mat[0]);
 		const minY = Math.min(...mat[1]);
 		return [minX, minY];
 	});
-	const maxXY = rotPoints.map((pMat): XY => {
-		const mat = pMat as number[][];
+	const maxXY = rotPoints.map((mat): XY => {
 		const minX = Math.max(...mat[0]);
 		const minY = Math.max(...mat[1]);
 		return [minX, minY];
@@ -55,10 +53,10 @@ export const findMinBoundingRect = (points: XY[]): XY[] => {
 	const r = rotations[bestIdx];
 
 	return [
-		multiply([x1, y2], r),
-		multiply([x2, y2], r),
-		multiply([x2, y1], r),
-		multiply([x1, y1], r),
-		multiply([x1, y2], r),
+		vecMulMat([x1, y2], r),
+		vecMulMat([x2, y2], r),
+		vecMulMat([x2, y1], r),
+		vecMulMat([x1, y1], r),
+		vecMulMat([x1, y2], r),
 	];
 };
