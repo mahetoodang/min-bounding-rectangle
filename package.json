@@ -1,6 +1,7 @@
 {
 	"name": "min-bounding-rectangle",
 	"version": "2.0.0",
+	"packageManager": "pnpm@12.4.2",
 	"main": "dist/min-bounding-rectangle.umd.js",
 	"module": "dist/min-bounding-rectangle.es.mjs",
 	"types": "dist/min-bounding-rectangle.d.ts",
@@ -17,12 +18,11 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"build:size": "npm run build && size-limit",
-		"publisher": "vitest run && npm run build && npm publish",
+		"build:size": "pnpm build && size-limit",
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"test:bench": "vitest bench --reporter=verbose",
-		"check:detailed": "npx npm-check-updates -p npm -i --format group"
+		"check:detailed": "pnpm dlx npm-check-updates -p pnpm -i --format group"
 	},
 	"repository": {
 		"type": "git",
