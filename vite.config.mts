@@ -1,7 +1,5 @@
-/// <reference types="vitest" />
-
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import dts from 'vite-plugin-dts';
 import compression from 'vite-plugin-compression2';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -35,5 +33,8 @@ export default defineConfig({
 	],
 	test: {
 		environment: 'node',
+		benchmark: {
+			enabled: true,
+		},
 	},
 });
